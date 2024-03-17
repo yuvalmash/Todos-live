@@ -1,0 +1,20 @@
+{
+  "name": "todo-server-side",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --inspect index.js"
+  },
+  "author": "Yuval",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3",
+    "memory-cache": "^0.2.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
