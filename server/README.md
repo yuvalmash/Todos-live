@@ -33,7 +33,7 @@ This is a simple yet powerful application designed to help you manage your tasks
 - **DELETE /api/todo/:id:** Deletes a todo from the server by ID. Supports pagination.
 
 - Caching Mechanism
-The Todo App employs an in-memory caching system to store previously fetched todos, page numbers, and search queries. When users revisit a previously accessed page or perform a similar search, the app checks the cache first to retrieve the data, enhancing performance and reducing server load. Cached data is periodically refreshed to ensure data accuracy and minimize stale content.
+  The Todo App employs an in-memory caching system to store previously fetched todos, page numbers, and search queries. When users revisit a previously accessed page or perform a similar search, the app checks the cache first to retrieve the data, enhancing performance and reducing server load. Cached data is periodically refreshed to ensure data accuracy and minimize stale content.
 
 ## Usage:
 
@@ -44,4 +44,3 @@ The Todo App employs an in-memory caching system to store previously fetched tod
 5. Navigate to the `server` directory.
 6. Run `npm install` to install server-side dependencies.
 7. Run `npm start` to start the server.
-
