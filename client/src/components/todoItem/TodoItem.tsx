@@ -96,7 +96,7 @@ const TodoItem: React.ForwardRefRenderFunction<HTMLLIElement, TodoItemProps> = (
             sx={todo.isComplete ? { color: '#757575', textDecoration: 'line-through' } : null}
             primary={
               <div>
-                {todo.id} {todo.title}
+                {todo.title}
               </div>
             }
           />
