@@ -17,6 +17,7 @@ This is a simple yet powerful application designed to help you manage your tasks
 - **Delete Button:** 🗑️ The delete button provides a convenient way to remove a todo from your list. Clicking on the delete icon next to a todo item instantly deletes it from the list, allowing you to declutter your todo list and focus on the tasks that matter most.
 
 - **Loader:** 🔄 The loader component displays a spinning animation (CircularProgress) to indicate that the application is loading data. It appears when fetching todos from the server and disappears once the data is loaded.
+- **Please note that the loader is presented due to a synthetic delay in the "router.get" route (if you remove the delay it would be hard to see the loader on a fast internet connection.
 
 - **Toast:** 🍞 The toast feature provides user feedback in the form of an alert (Alert component from Material-UI). It notifies users about the status of their actions, such as successfully adding, updating, or deleting a todo, or encountering an error during the process.
 
@@ -33,7 +34,7 @@ This is a simple yet powerful application designed to help you manage your tasks
 - **DELETE /api/todo/:id:** Deletes a todo from the server by ID. Supports pagination.
 
 - Caching Mechanism
-  The Todo App employs an in-memory caching system to store previously fetched todos, page numbers, and search queries. When users revisit a previously accessed page or perform a similar search, the app checks the cache first to retrieve the data, enhancing performance and reducing server load. Cached data is periodically refreshed to ensure data accuracy and minimize stale content.
+The Todo App employs an in-memory caching system to store previously fetched todos, page numbers, and search queries. When users revisit a previously accessed page or perform a similar search, the app checks the cache first to retrieve the data, enhancing performance and reducing server load. Cached data is periodically refreshed to ensure data accuracy and minimize stale content.
 
 ## Usage:
 
@@ -44,3 +45,4 @@ This is a simple yet powerful application designed to help you manage your tasks
 5. Navigate to the `server` directory.
 6. Run `npm install` to install server-side dependencies.
 7. Run `npm start` to start the server.
+
