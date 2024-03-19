@@ -13,6 +13,7 @@ import AddTodoBar from './components/addTodoBar/AddTodoBar';
 import Loader from './components/loader/Loader';
 import SearchTodoBar from './components/searchTodoBar/SearchTodoBar';
 import Toast from './components/toast/Toast';
+import { url } from 'inspector';
 
 const App: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -29,7 +30,7 @@ const App: React.FC = () => {
 
   const observer: React.MutableRefObject<IntersectionObserver | null> = useRef(null);
 
-  const handleLastTodoElementRef: React.RefCallback<HTMLLIElement> = useCallback(
+  const handleLastTodoElementRef: React.RefCallback<HTMLDivElement> = useCallback(
     (node) => {
       if (isLoading) return;
       if (observer.current) observer.current.disconnect();
@@ -113,7 +114,8 @@ const App: React.FC = () => {
           gap: '16px',
           padding: '20px 0',
           justifyContent: 'space-between',
-          flexDirection: 'row'
+          flexDirection: 'row',
+          backgroundColor: '#f5f5f5'
         }}
       >
         <SearchTodoBar setTodos={setTodos} setSearchValue={setSearchValue} setPageNumber={setPageNumber} searchValue={searchValue} />
@@ -124,9 +126,10 @@ const App: React.FC = () => {
         </Toolbar>
         <AddTodoBar addTodo={handleAddTodo} />
       </Box>
-
-      {todos.length > 0 && <TodosTable todos={todos} updateTodo={handleUpdateTodo} deleteTodo={handleDeleteTodo} lastTodoElementRef={handleLastTodoElementRef} />}
-      {isLoading && <Loader />}
+      <Box sx={{ backgroundColor: '#f5f5f5', margin: '0 auto' }}>
+        {todos.length > 0 && <TodosTable todos={todos} updateTodo={handleUpdateTodo} deleteTodo={handleDeleteTodo} lastTodoElementRef={handleLastTodoElementRef} />}
+        {isLoading && <Loader />}
+      </Box>
     </div>
   );
 };

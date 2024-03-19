@@ -24,3 +24,5 @@ export type ServerResponse = {
   status: typeof serverResponseForToast.ERROR | typeof serverResponseForToast.SUCCESS;
   todo?: Todo;
 };
+
+export type IconType = 'delete' | 'edit' | 'save' | 'cancel' | 'check' | 'uncheck';

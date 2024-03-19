@@ -1,0 +1,8 @@
+{
+    "name": "Awesome todo's app",
+    "short_name": "ATA",
+    "description": "The Todo App employs an in-memory caching system to store previously fetched todos, page numbers, and search queries. When users revisit a previously accessed page or perform a similar search, the app checks the cache first to retrieve the data, enhancing performance and reducing server load. Cached data is periodically refreshed to ensure data accuracy and minimize stale content.",
+    "start_url": "./index.html",
+    "display": "standalone"
+}
+  

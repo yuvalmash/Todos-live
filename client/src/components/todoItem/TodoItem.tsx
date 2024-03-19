@@ -1,24 +1,25 @@
 import React, { useState, forwardRef } from 'react';
 import { Todo } from '../../types';
-import { ListItem, IconButton, ListItemButton, Checkbox, ListItemIcon, ListItemText, TextField, Tooltip } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Card, CardActionArea, ListItemText, TextField, CardActions, CardContent, Typography, Box } from '@mui/material';
+import './TodoItem';
+import CustomIcon from './customIcon/CustomIcon';
 
 type TodoItemProps = {
   todo: Todo;
   updateTodo: (id: Todo) => void;
   deleteTodo: (id: number) => void;
+  backgroundColor: string;
 };
 
-const TodoItem: React.ForwardRefRenderFunction<HTMLLIElement, TodoItemProps> = ({ todo, updateTodo, deleteTodo }, ref) => {
+const TodoItem: React.ForwardRefRenderFunction<HTMLDivElement, TodoItemProps> = ({ todo, updateTodo, deleteTodo, backgroundColor }, ref) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editingValue, setEditingValue] = useState('');
+  const [isComplete, setIsComplete] = useState(todo.isComplete);
+  const [editingValue, setEditingValue] = useState(todo.title);
 
   const handleToggleIsComplete = (todo: Todo) => {
     todo.isComplete = !todo.isComplete;
     updateTodo(todo);
+    setIsComplete((prevStatus) => !prevStatus);
   };
 
   const handleToggleEdit = () => {
@@ -39,70 +40,58 @@ const TodoItem: React.ForwardRefRenderFunction<HTMLLIElement, TodoItemProps> = (
     deleteTodo(id);
   };
 
-  const editIcon = (
-    <Tooltip title='Edit Todo' placement='top'>
-      <IconButton edge='start' size='large' color='primary' aria-label='edit-todo' onClick={() => handleToggleEdit()}>
-        <EditIcon />
-      </IconButton>
-    </Tooltip>
-  );
-  const cancelIcon = (
-    <Tooltip title='Cancel Edit' placement='top'>
-      <IconButton edge='start' size='large' color='primary' aria-label='edit-todo' onClick={() => handleToggleEdit()}>
-        <HighlightOffIcon />
-      </IconButton>
-    </Tooltip>
-  );
-  const saveIcon = () => (
-    <Tooltip title='Save Todo' placement='top'>
-      <IconButton edge='start' size='large' color='primary' aria-label='edit-todo' onClick={() => handleTitleTodoChange(todo)}>
-        <SaveIcon />
-      </IconButton>
-    </Tooltip>
-  );
-
   return (
-    <ListItem
-      sx={{ padding: '15px' }}
-      ref={ref}
-      divider
-      className='todo-item'
-      key={todo.id}
-      secondaryAction={
-        <>
-          <Tooltip title='Delete Todo' placement='top'>
-            <IconButton edge='start' size='large' color='primary' aria-label='delete-todo' onClick={() => handleDeleteTodo(todo.id)}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+    <Card ref={ref} variant='outlined' sx={{ width: '20vw', height: '20vw', backgroundColor }}>
+      <CardActionArea
+        sx={{
+          display: 'flex',
+          height: '80%',
+          overflowY: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '8px'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#B7AFA3',
+            borderRadius: '4px'
+          }
+        }}
+      >
+        <CardContent>
+          {isEditing ? (
+            <TextField value={editingValue} placeholder={todo.title} onChange={(event) => handleInputChange(event)} variant='outlined' multiline minRows={2} />
+          ) : (
+            <>
+              <ListItemText sx={isComplete ? { color: '#757575', textDecoration: 'line-through' } : null}>
+                <Typography>{todo.title}</Typography>
+              </ListItemText>
+            </>
+          )}
+        </CardContent>
+      </CardActionArea>
+      <CardActions
+        disableSpacing
+        sx={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: 0
+        }}
+      >
+        <Box>
+          <CustomIcon iconType='delete' onClick={() => handleDeleteTodo(todo.id)} />
+          {isComplete ? <CustomIcon iconType='check' onClick={() => handleToggleIsComplete(todo)} /> : <CustomIcon iconType='uncheck' onClick={() => handleToggleIsComplete(todo)} />}
+        </Box>
+        <Box>
           {isEditing ? (
             <>
-              {saveIcon()} {cancelIcon}
+              <CustomIcon iconType='save' onClick={() => handleTitleTodoChange(todo)} />
+              <CustomIcon iconType='cancel' onClick={() => handleToggleEdit()} />
             </>
           ) : (
-            editIcon
+            <CustomIcon iconType='edit' onClick={() => handleToggleEdit()} />
           )}
-        </>
-      }
-    >
-      {isEditing ? (
-        <TextField value={editingValue} placeholder={todo.title} onChange={(event) => handleInputChange(event)} variant='outlined' fullWidth />
-      ) : (
-        <ListItemButton>
-          <ListItemIcon>
-            <Checkbox checked={todo.isComplete} onChange={() => handleToggleIsComplete(todo)} />
-          </ListItemIcon>
-          <ListItemText
-            sx={todo.isComplete ? { color: '#757575', textDecoration: 'line-through' } : null}
-            primary={
-              <div>
-                {todo.title}
-              </div>
-            }
-          />
-        </ListItemButton>
-      )}
-    </ListItem>
+        </Box>
+      </CardActions>
+    </Card>
   );
 };
 
