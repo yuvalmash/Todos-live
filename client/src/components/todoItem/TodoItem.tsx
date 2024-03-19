@@ -73,7 +73,8 @@ const TodoItem: React.ForwardRefRenderFunction<HTMLDivElement, TodoItemProps> = 
         sx={{
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: 0
+          padding: 0,
+          height: '20%'
         }}
       >
         <Box>
