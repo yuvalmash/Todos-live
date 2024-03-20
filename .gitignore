@@ -10,10 +10,7 @@ server/node_modules
 # testing
 /coverage
 
-# production
-/build
-
-# misc
+# miscgit 
 .DS_Store
 .env.local
 .env.development.local
