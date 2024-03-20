@@ -81,8 +81,6 @@ router.get('/todos', async (req, res) => {
 
 router.post('/todo', (req, res) => {
   try {
-    console.log('req.body= ', req.body);
-
     const { title } = req.body;
 
     if (!title) {
