@@ -1,7 +1,8 @@
 import TodoItem from '../todoItem/TodoItem';
 import { Todo } from '../../types';
 import { Box } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { noteTheme } from '../../themes/noteTheme';
 
 type TodosTableProps = {
   todos: Todo[];
@@ -10,22 +11,11 @@ type TodosTableProps = {
   lastTodoElementRef: React.Ref<HTMLDivElement>;
 };
 
-const theme = createTheme({
-  typography: {
-    allVariants: {
-      fontFamily: 'Delicious Handrawn, cursive',
-      fontWeight: 400,
-      fontStyle: 'normal',
-      fontSize: '35px'
-    }
-  }
-});
-
 export default function TodosTable({ todos, updateTodo, deleteTodo, lastTodoElementRef }: TodosTableProps) {
   const backgroundColorArr = ['#fff9b1', '#daf7a1', '#FFCEE0', '#b1d3f6'];
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={noteTheme}>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '80vw', margin: '0 auto', gap: '10px', justifyContent: 'center' }}>
         {todos.map((todo: Todo, index: number) => {
           const backgroundColor = backgroundColorArr[index % backgroundColorArr.length];

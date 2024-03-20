@@ -17,7 +17,7 @@ export default function SearchTodoBar({ setTodos, setSearchValue, setPageNumber,
   }
 
   return (
-    <Box sx={{ width: '33%' }}>
+    <Box>
       <TextField type='text' label="search todo's title" value={searchValue} onChange={(event) => handleSearch(event.target.value)} />
     </Box>
   );

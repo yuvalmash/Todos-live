@@ -7,20 +7,21 @@ import { ServerResponse, Todo } from './types';
 import { postTodo } from './api/postTodo';
 import { getTodos } from './api/getTodos';
 import { updateTodo } from './api/updateTodo';
+import { ThemeProvider } from '@mui/material/styles';
 import TodosTable from './components/todosTable/TodosTable';
 import Navbar from './components/navbar/Navbar';
 import AddTodoBar from './components/addTodoBar/AddTodoBar';
 import Loader from './components/loader/Loader';
 import SearchTodoBar from './components/searchTodoBar/SearchTodoBar';
 import Toast from './components/toast/Toast';
-import { url } from 'inspector';
+import { subHeaderTheme } from './themes/subHeaderTheme';
 
 const App: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMoreTodos, setHasMoreTodos] = useState<boolean>();
   const [toastObj, setToastObj] = useState<ServerResponse>({
     msg: '',
-    status: 'success'
+    status: serverResponseForToast.SUCCESS
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [todos, setTodos] = useState<Todo[] | []>([]);
@@ -108,24 +109,26 @@ const App: React.FC = () => {
     <div>
       <Toast isToastOpen={isToastOpen} setIsToastOpen={setIsToastOpen} toastObj={toastObj} />
       <Navbar />
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '16px',
-          padding: '20px 0',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          backgroundColor: '#f5f5f5'
-        }}
-      >
-        <SearchTodoBar setTodos={setTodos} setSearchValue={setSearchValue} setPageNumber={setPageNumber} searchValue={searchValue} />
-        <Toolbar>
-          <Typography variant='h5' sx={{ textAlign: 'center' }}>
-            Total todos in the DB: {todosCount}
-          </Typography>
-        </Toolbar>
-        <AddTodoBar addTodo={handleAddTodo} />
-      </Box>
+      <ThemeProvider theme={subHeaderTheme}>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '16px',
+            padding: '20px 0',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            backgroundColor: '#f5f5f5'
+          }}
+        >
+          <SearchTodoBar setTodos={setTodos} setSearchValue={setSearchValue} setPageNumber={setPageNumber} searchValue={searchValue} />
+          <Toolbar>
+            <Typography variant='h5' sx={{ textAlign: 'center' }}>
+              Total todos in the DB: {todosCount}
+            </Typography>
+          </Toolbar>
+          <AddTodoBar addTodo={handleAddTodo} />
+        </Box>
+      </ThemeProvider>
       <Box sx={{ backgroundColor: '#f5f5f5', margin: '0 auto' }}>
         {todos.length > 0 && <TodosTable todos={todos} updateTodo={handleUpdateTodo} deleteTodo={handleDeleteTodo} lastTodoElementRef={handleLastTodoElementRef} />}
         {isLoading && <Loader />}

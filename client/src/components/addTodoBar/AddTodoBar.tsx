@@ -16,7 +16,7 @@ export default function AddTodoBar({ addTodo }: AddTodoBarProps) {
   };
 
   return (
-    <Box sx={{ width: '33%' }}>
+    <Box>
       <form
         onSubmit={(event) => {
           event.preventDefault();
